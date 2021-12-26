@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Markup Language</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+    }
+    #main {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: max-content;
+      text-align: center;
+    }
+    #clock {
+      font-size: 1000%;
+    }
+    #slogan {
+      font-size: 150%;
+    }
+  </style>
+</head>
+<body>
+  <div id="main">
+    <div id="clock">T+00:00:00</div>
+    <div id="slogan">May the Goddess of the Earth blesses the revenge-seekers.</div>
+  </div>
+  <script>
+    var div = document.getElementById('clock');
+    function pad(x) { return (x < 10? '0' : '') + x; }
+    setInterval(function () {
+      var remainS = Math.round((new Date('2022-01-01 00:00:00') - new Date()) / 1000);
+      // var remainS = Math.round((new Date('2021-12-27 00:00:00') - new Date()) / 1000);
+      var sign = remainS > 0;
+      remainS = Math.abs(remainS);
+
+      var days = Math.floor(remainS / (60*60*24));
+      var hours = Math.floor((remainS-=(days*60*60*24))/(60*60));
+      var minutes = Math.floor((remainS-=(hours*60*60))/(60));
+      var seconds = Math.floor((remainS-=(minutes*60)));
+      div.innerText = 'T'+(sign?'-':'+')+(days*24+hours+'')+':'+(pad(minutes))+':'+(pad(seconds));
+      console.log(days, hours, minutes, seconds);
+    }, 1000);
+  </script>
+</body>
+</html>
